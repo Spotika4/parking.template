@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    //= chunks/head.html
+</head>
+<body>
+    <div id="ROOT">
+        <div class="screen vw-100" id="PROFILE">
+            <header class="shadow">
+                <div class="container-fluid">
+                    <h1>Профиль</h1>
+                </div>
+            </header>
+            <main>
+                <div class="scroller">
+                    <div class="container-fluid">
+                        <button class="btn btn-primary w-100 mt-1" onclick="screen('#APP');">Назад</button>
+                        <button class="btn btn-primary w-100 mt-1" onclick="screen('#SIDER');">Сайдер</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div class="screen vw-100 active" id="APP">
+            <header class="shadow">
+                <div class="container-fluid">
+                    <h1>Главная</h1>
+                </div>
+            </header>
+            <main>
+                <div class="scroller">
+                    <div class="container-fluid">
+                        <button class="btn btn-primary w-100 mt-1" onclick="screen('#SIDER');">Сайдер</button>
+                        <button class="btn btn-primary w-100 mt-1" onclick="screen('#PROFILE');">Профиль</button>
+                        <button class="btn btn-primary w-100 mt-1" onclick="widget('#MENU');">Меню</button>
+                        <button class="btn btn-primary w-100 mt-1" onclick="widget('#WIDGET');">Виджет</button>
+                        <button class="btn btn-primary w-100 mt-1" onclick="shutter();">Шторка</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+        //= chunks/footer.html
+        //= chunks/sider.html
+        //= chunks/widget.html
+        //= chunks/menu.html
+    </div>
+</body>
+</html>
+

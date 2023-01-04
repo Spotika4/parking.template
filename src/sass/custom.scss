@@ -1,0 +1,156 @@
+html,
+body {
+	width: 100vw;
+	height: 100vh;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background: transparent;
+}
+
+#ROOT {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	overflow: hidden;
+	flex-direction: row;
+
+	.screen {
+		position: relative;
+		display: flex;
+		flex: 0;
+		flex-direction: column;
+
+		width: 100vw;
+		height: 100vh;
+		overflow: hidden;
+		transition: .3s;
+
+		// todo:
+		background-color: #fff;
+
+		header {
+			position: relative;
+			z-index: 75;
+			width: 100%;
+			height: 50px;
+			transition: .5s;
+
+			h1 {
+				line-height: 50px;
+			}
+		}
+
+		main {
+			position: relative;
+			z-index: 50;
+			flex-grow: 1;
+
+			width: 100%;
+			height: 100%;
+			padding-bottom: 50px;
+			overflow: hidden;
+			transition: .5s;
+
+			.scroller,
+			.container-fluid {
+				width: 100%;
+				height: 100%;
+				overflow: scroll;
+			}
+		}
+	}
+ 
+	footer {
+		position: absolute;
+		z-index: 150;
+		flex-shrink: 0;
+		
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 50px;
+		background-color: #fff;
+		
+		menu {
+			display: flex;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			font-size: 12px;
+			list-style-type: none;
+			
+			li {
+				width: 25%;
+				height: 100%;
+				text-align: center;
+				white-space: nowrap;
+				
+				a {
+					
+					span {
+						font-size: 10px;
+						
+						i {
+							font-size: 16px;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.screen.active {
+		flex: 1;
+	}
+
+	.screen.active.open {
+		background: transparent;
+	}
+
+	.screen.active.open main {
+		height: initial;
+	}
+
+	.screen.active.open main,
+	.screen.active.open header {
+		margin-top: -100vh;
+		background-color: transparent;
+	}
+
+	.widget {
+		position: absolute;
+		bottom: -100vh;
+		z-index: 100;
+
+		width: 100vw;
+		transition: .3s;
+		background: #fff;
+
+		menu {
+			position: relative;
+			z-index: 70;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			font-size: 12px;
+			list-style-type: none;
+
+			li {
+				white-space: nowrap;
+			}
+		}
+	}
+
+	.widget.active {
+		bottom: 50px;
+	}
+
+	.widget.screen {
+		height: 100vh;
+	}
+
+	.widget.screen.active {
+		margin-bottom: -50px;
+	}
+}
