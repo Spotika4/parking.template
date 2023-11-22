@@ -8,12 +8,151 @@ body {
 	background: transparent;
 }
 
+@each $index, $value in $spacer_values {
+	.z-index-#{$index} {
+		z-index: $value;
+	}
+	.z-index--#{$index} {
+		z-index: -#{$value};
+	}
+}
+
+@each $index, $value in $spacers {
+	.line-height-#{$index} {
+		line-height: #{$value};
+	}
+}
+
+@each $index, $value in $widths {
+	.width-#{$index} {
+		width: #{$value};
+	}
+}
+
+@each $index, $value in $widths {
+	.vw-#{$index} {
+		width: #{$index}vw;
+	}
+}
+
+@each $index, $value in $widths {
+	.vh-#{$index} {
+		height: #{$index}vh;
+	}
+}
+
+@each $index, $value in $spacers {
+	.top-#{$index} {
+		top: #{$value};
+	}
+	.bottom-#{$index} {
+		bottom: #{$value};
+	}
+	.left-#{$index} {
+		left: #{$value};
+	}
+	.right-#{$index} {
+		right: #{$value};
+	}
+	.top--#{$index} {
+		top: -#{$value};
+	}
+	.bottom--#{$index} {
+		bottom: -#{$value};
+	}
+	.left--#{$index} {
+		left: -#{$value};
+	}
+	.right--#{$index} {
+		right: -#{$value};
+	}
+}
+
+.marker {
+	padding-left: 15px;
+}
+
+.marker:before {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	margin-top: -5px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+}
+
+@each $color, $value in $theme-colors {
+	.marker.#{$color}:before {
+		background-color: $value;
+	}
+}
+
+.rounded-icon {
+
+	i {
+		width: 24px;
+		height: 24px;
+		line-height: 24px;
+		text-align: center;
+		border-radius: 50%;
+		color: $white;
+	}
+
+	@each $color, $value in $theme-colors {
+		i.#{$color} {
+			background-color: $value;
+		}
+	}
+}
+
+textarea {
+	resize: none;
+}
+
+.cursor-pointer {
+	cursor: pointer;
+}
+
+.items-overflow {
+	display: flex;
+	flex-direction: row;
+	min-width: min-content;
+	overflow-x: scroll;
+}
+
 #ROOT {
 	width: 100vw;
 	height: 100vh;
 	display: flex;
 	overflow: hidden;
 	flex-direction: row;
+
+	.spinner {
+		position: relative;
+		height: 50px;
+		width: 50px;
+		margin: $spacer auto $spacer auto;
+		border: 4px solid $gray-700;
+		border-top-color: $primary;
+		border-radius: 50%;
+		animation: loader-rotate 1s linear infinite;
+		top: initial;
+	}
+
+	button .spinner {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: 20px;
+		height: 20px;
+		margin-left: -10px;
+		margin-top: -10px;
+		border: 4px solid #fff;
+		border-top-color: $primary;
+	}
 
 	.screen {
 		position: relative;
@@ -32,9 +171,11 @@ body {
 		header {
 			position: relative;
 			z-index: 75;
-			width: 100%;
+			width: 100vw;
 			height: 50px;
 			transition: .5s;
+			border-bottom-right-radius: $border-radius;
+			border-bottom-left-radius: $border-radius;
 
 			h1 {
 				line-height: 50px;
@@ -46,9 +187,9 @@ body {
 			z-index: 50;
 			flex-grow: 1;
 
-			width: 100%;
+			width: 100vw;
 			height: 100%;
-			padding-bottom: 50px;
+			padding-bottom: 68px;
 			overflow: hidden;
 			transition: .5s;
 
@@ -56,22 +197,25 @@ body {
 			.container-fluid {
 				width: 100%;
 				height: 100%;
-				overflow: scroll;
+				overflow-y: auto;
+				overflow-x: hidden;
 			}
 		}
 	}
- 
+
 	footer {
 		position: absolute;
 		z-index: 150;
 		flex-shrink: 0;
-		
+
 		bottom: 0;
 		left: 0;
 		width: 100%;
-		height: 50px;
+		height: 68px;
 		background-color: #fff;
-		
+		border-top-right-radius: $border-radius;
+		border-top-left-radius: $border-radius;
+
 		menu {
 			display: flex;
 			height: 100%;
@@ -79,20 +223,24 @@ body {
 			padding: 0;
 			font-size: 12px;
 			list-style-type: none;
-			
+
 			li {
+				display: flex;
 				width: 25%;
 				height: 100%;
 				text-align: center;
 				white-space: nowrap;
-				
+				align-content: center;
+				align-items: center;
+				justify-content: center;
+
 				a {
-					
+
 					span {
 						font-size: 10px;
-						
+
 						i {
-							font-size: 16px;
+							font-size: 24px;
 						}
 					}
 				}
@@ -116,6 +264,13 @@ body {
 	.screen.active.open header {
 		margin-top: -100vh;
 		background-color: transparent;
+	}
+
+	.screen.widget {
+
+		main {
+			padding-bottom: 160px;
+		}
 	}
 
 	.widget {
@@ -143,7 +298,7 @@ body {
 	}
 
 	.widget.active {
-		bottom: 50px;
+		bottom: 60px;
 	}
 
 	.widget.screen {
@@ -151,6 +306,1328 @@ body {
 	}
 
 	.widget.screen.active {
-		margin-bottom: -50px;
+		margin-bottom: -110px;
+	}
+
+	.sector-table {
+		display: flex;
+		height: 100%;
+		width: 100%;
+		overflow: auto;
+		flex-direction: column;
+
+		.sector-row {
+			display: flex;
+			flex-direction: row;
+			min-width: min-content;
+
+			.sector-cell {
+				position: relative;
+				display: flex;
+				min-width: min-content;
+				width: 58px;
+				height: 98px;
+
+				.status {
+					position: absolute;
+					right: 5px;
+					bottom: 5px;
+					z-index: 5;
+					width: 23px;
+					height: 23px;
+					border-radius: 50%;
+
+					i {
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						margin-top: -7px;
+						margin-left: -7px;
+						font-size: 13px;
+					}
+				}
+
+
+				@each $color, $value in $theme-colors {
+					.status.#{$color} {
+						background: $value;
+					}
+				}
+			}
+
+			.sector-cell {
+
+				.opacity {
+					display: none;
+					position: absolute;
+					left: 7px;
+					top: 2px;
+					width: 44px;
+					height: 89px;
+					opacity: .6;
+					z-index: 99;
+					background: #000;
+				}
+
+				.g-number {
+					display: none;
+					position: absolute;
+					left: 25px;
+					font-size: 14px;
+					top: 15px;
+					z-index: 99;
+					color: #fff;
+					width: 8px;
+					line-height: 14px;
+					word-break: break-all;
+				}
+
+				.inner-id {
+					display: initial;
+					position: absolute;
+					left: 12px;
+					font-size: 10px;
+					top: 7px;
+					z-index: 99;
+					color: #fff;
+				}
+			}
+
+			.sector-cell.car-cell:before {
+				position: absolute;
+				z-index: 1;
+				content: '';
+				background: transparent url(../tiles/car.png) center center no-repeat;
+
+				top: 3px;
+				left: 3px;
+				width: 52px;
+				height: 92px;
+				border: 4px solid transparent;
+			}
+
+			.sector-cell.active:before {
+				position: absolute;
+				z-index: 1;
+				content: '';
+
+				top: 3px;
+				left: 3px;
+				width: 52px;
+				height: 92px;
+				border: 4px solid #fcc300;
+			}
+
+			.sector-cell.tile-cell:after {
+				content: '';
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background-size: cover;
+				background-color: transparent;
+				background-repeat: no-repeat;
+				background-position: center center;
+			}
+
+			.sector-cell.tile-cell.tile-0:after {
+				background-image: url(../tiles/0.png);
+			}
+
+			.sector-cell.tile-cell.tile-1:after {
+				background-image: url(../tiles/1.png);
+			}
+
+			.sector-cell.tile-cell.tile-2:after {
+				background-image: url(../tiles/2.png);
+			}
+
+			.sector-cell.tile-cell.tile-3:after {
+				background-image: url(../tiles/3.png);
+			}
+
+			.sector-cell.tile-cell.tile-4:after {
+				background-image: url(../tiles/4.png);
+			}
+
+			.sector-cell.tile-cell.tile-bushes-0:after {
+				background-image: url(../tiles/bushes-0.png);
+			}
+
+			.sector-cell.tile-cell.tile-bushes-1:after {
+				background-image: url(../tiles/bushes-1.png);
+			}
+
+			.sector-cell.tile-cell.tile-bushes-2:after {
+				background-image: url(../tiles/bushes-2.png);
+			}
+
+			.sector-cell.tile-cell.tile-house-0:after {
+				background-image: url(../tiles/house-0.png);
+			}
+
+			.sector-cell.tile-cell.tile-house-1:after {
+				background-image: url(../tiles/house-1.png);
+			}
+
+			.sector-cell.tile-cell.tile-house-2:after {
+				background-image: url(../tiles/house-2.png);
+			}
+
+			.sector-cell.tile-cell.tile-house-3:after {
+				background-image: url(../tiles/house-3.png);
+			}
+
+			.sector-cell.tile-cell.tile-house-3:after {
+				background-image: url(../tiles/house-3.png);
+			}
+
+			.sector-cell.tile-cell.tile-house-4:after {
+				background-image: url(../tiles/house-4.png);
+			}
+
+			.sector-cell.tile-cell.tile-house-5:after {
+				background-image: url(../tiles/house-5.png);
+			}
+
+			.sector-cell.tile-cell.tile-house-6:after {
+				background-image: url(../tiles/house-6.png);
+			}
+
+			.sector-cell.tile-cell.tile-house-7:after {
+				background-image: url(../tiles/house-7.png);
+			}
+
+			.sector-cell.tile-cell.tile-tree-0:after {
+				background-image: url(../tiles/tree-0.png);
+			}
+
+			.sector-cell.tile-cell.tile-tree-1:after {
+				background-image: url(../tiles/tree-1.png);
+			}
+
+			.sector-cell.tile-cell.tile-trees-0:after {
+				background-image: url(../tiles/trees-0.png);
+			}
+
+			.sector-cell.tile-cell.tile-tree-1:after {
+				background-image: url(../tiles/trees-1.png);
+			}
+
+			.sector-cell.tile-cell.tile-way-0:after {
+				background-image: url(../tiles/way-0.png);
+			}
+
+			.sector-cell.tile-cell.tile-way-1:after {
+				background-image: url(../tiles/way-1.png);
+			}
+
+			.sector-cell.tile-cell.tile-light-0:after {
+				background-image: url(../tiles/light-0.png);
+			}
+
+			.sector-cell.tile-cell.tile-light-1:after {
+				background-image: url(../tiles/light-1.png);
+			}
+
+			.sector-cell.tile-cell.tile-partition-0:after {
+				background-image: url(../tiles/partition-0.png);
+			}
+
+			.sector-cell.tile-cell.tile-partition-1:after {
+				background-image: url(../tiles/partition-1.png);
+			}
+
+			.sector-cell.tile-cell.tile-partition-2:after {
+				background-image: url(../tiles/partition-2.png);
+			}
+
+			.sector-cell.tile-cell.tile-partition-3:after {
+				background-image: url(../tiles/partition-3.png);
+			}
+
+			.sector-cell.tile-cell.tile-arr-0:after {
+				background-image: url(../tiles/arr-0.png);
+			}
+
+			.sector-cell.tile-cell.tile-arr-1:after {
+				background-image: url(../tiles/arr-1.png);
+			}
+
+			.sector-cell.tile-cell.tile-arr-2:after {
+				background-image: url(../tiles/arr-2.png);
+			}
+
+			.sector-cell.tile-cell.tile-arr-3:after {
+				background-image: url(../tiles/arr-3.png);
+			}
+
+			.sector-cell.tile-cell.tile-arr-4:after {
+				background-image: url(../tiles/arr-4.png);
+			}
+
+			.sector-cell.tile-cell.tile-arr-5:after {
+				background-image: url(../tiles/arr-5.png);
+			}
+
+			.sector-cell.tile-cell.tile-arr-6:after {
+				background-image: url(../tiles/arr-6.png);
+			}
+
+			.sector-cell.tile-cell.tile-arr-7:after {
+				background-image: url(../tiles/arr-7.png);
+			}
+
+			.sector-cell.tile-cell.tile-arr-8:after {
+				background-image: url(../tiles/arr-8.png);
+			}
+
+			.sector-cell.tile-cell.tile-arr-9:after {
+				background-image: url(../tiles/arr-9.png);
+			}
+
+			.sector-cell.tile-cell.tile-arr-10:after {
+				background-image: url(../tiles/arr-10.png);
+			}
+
+			.sector-cell.tile-cell.tile-barrier-0:after {
+				background-image: url(../tiles/barrier-0.png);
+			}
+
+			.sector-cell.tile-cell.tile-barrier-1:after {
+				background-image: url(../tiles/barrier-1.png);
+			}
+
+			.sector-cell.tile-cell.tile-barrier-2:after {
+				background-image: url(../tiles/barrier-2.png);
+			}
+
+			.sector-cell.tile-cell.tile-barrier-3:after {
+				background-image: url(../tiles/barrier-3.png);
+			}
+
+			.sector-cell.tile-cell.tile-build-1:after {
+				background-image: url(../tiles/build-1.png);
+			}
+
+			.sector-cell.tile-cell.tile-build-2:after {
+				background-image: url(../tiles/build-2.png);
+			}
+
+			.sector-cell.tile-cell.tile-build-3:after {
+				background-image: url(../tiles/build-3.png);
+			}
+
+			.sector-cell.tile-cell.tile-build-4:after {
+				background-image: url(../tiles/build-4.png);
+			}
+
+			.sector-cell.tile-cell.tile-build-5:after {
+				background-image: url(../tiles/build-5.png);
+			}
+
+			.sector-cell.tile-cell.tile-build-6:after {
+				background-image: url(../tiles/build-6.png);
+			}
+
+			.sector-cell.tile-cell.tile-busy-1:after {
+				background-image: url(../tiles/busy-1.png);
+			}
+
+			.sector-cell.tile-cell.tile-busy-2:after {
+				background-image: url(../tiles/busy-2.png);
+			}
+
+			.sector-cell.tile-cell.tile-busy-3:after {
+				background-image: url(../tiles/busy-3.png);
+			}
+
+			.sector-cell.tile-cell.tile-busy-4:after {
+				background-image: url(../tiles/busy-4.png);
+			}
+
+			.sector-cell.tile-cell.tile-green-1:after {
+				background-image: url(../tiles/green-1.png);
+			}
+
+			.sector-cell.tile-cell.tile-green-2:after {
+				background-image: url(../tiles/green-2.png);
+			}
+
+			.sector-cell.tile-cell.tile-green-3:after {
+				background-image: url(../tiles/green-3.png);
+			}
+
+			.sector-cell.tile-cell.tile-green-4:after {
+				background-image: url(../tiles/green-4.png);
+			}
+
+			.sector-cell.tile-cell.tile-yellow-1:after {
+				background-image: url(../tiles/yellow-1.png);
+			}
+
+			.sector-cell.tile-cell.tile-yellow-2:after {
+				background-image: url(../tiles/yellow-2.png);
+			}
+
+			.sector-cell.tile-cell.tile-yellow-3after {
+				background-image: url(../tiles/yellow-3.png);
+			}
+
+			.sector-cell.tile-cell.tile-yellow-4:after {
+				background-image: url(../tiles/yellow-4.png);
+			}
+
+			.sector-cell.tile-cell.tile-narr-1:after {
+				background-image: url(../tiles/narr-1.png);
+			}
+
+			.sector-cell.tile-cell.tile-narr-2:after {
+				background-image: url(../tiles/narr-2.png);
+			}
+
+			.sector-cell.tile-cell.tile-narr-3:after {
+				background-image: url(../tiles/narr-3.png);
+			}
+
+			.sector-cell.tile-cell.tile-narr-4:after {
+				background-image: url(../tiles/narr-4.png);
+			}
+
+			.sector-cell.tile-cell.tile-narr-5:after {
+				background-image: url(../tiles/narr-5.png);
+			}
+
+			.sector-cell.tile-cell.tile-narr-6:after {
+				background-image: url(../tiles/narr-6.png);
+			}
+
+			.sector-cell.tile-cell.tile-narr-7:after {
+				background-image: url(../tiles/narr-7.png);
+			}
+
+			.sector-cell.tile-cell.tile-narr-8:after {
+				background-image: url(../tiles/narr-8.png);
+			}
+
+			.sector-cell.tile-cell.tile-flash-1:after {
+				background-image: url(../tiles/flash-1.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-1:after {
+				background-image: url(../tiles/Extra-1.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-1:after {
+				background-image: url(../tiles/Extra-1.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-2:after {
+				background-image: url(../tiles/Extra-2.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-3:after {
+				background-image: url(../tiles/Extra-3.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-4:after {
+				background-image: url(../tiles/Extra-4.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-5:after {
+				background-image: url(../tiles/Extra-5.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-6:after {
+				background-image: url(../tiles/Extra-6.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-7:after {
+				background-image: url(../tiles/Extra-7.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-8:after {
+				background-image: url(../tiles/Extra-8.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-9:after {
+				background-image: url(../tiles/Extra-9.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-10:after {
+				background-image: url(../tiles/Extra-10.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-11:after {
+				background-image: url(../tiles/Extra-11.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-12:after {
+				background-image: url(../tiles/Extra-12.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-13:after {
+				background-image: url(../tiles/Extra-13.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-14:after {
+				background-image: url(../tiles/Extra-14.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-15:after {
+				background-image: url(../tiles/Extra-15.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-16:after {
+				background-image: url(../tiles/Extra-16.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-17:after {
+				background-image: url(../tiles/Extra-17.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-18:after {
+				background-image: url(../tiles/Extra-18.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-19:after {
+				background-image: url(../tiles/Extra-19.png);
+			}
+
+			.sector-cell.tile-cell.tile-Extra-20:after {
+				background-image: url(../tiles/Extra-20.png);
+			}
+		}
+
+		.sector-row:first-child .sector-cell:last-child {
+			border-top-right-radius: $border-radius;
+		}
+
+		.sector-row:last-child .sector-cell:last-child {
+			border-bottom-right-radius: $border-radius;
+		}
+
+		.sector-row:first-child .sector-cell:first-child {
+			border-top-left-radius: $border-radius;
+		}
+
+		.sector-row:last-child .sector-cell:first-child {
+			border-bottom-left-radius: $border-radius;
+		}
+	}
+
+	.sector-table.visibility-on {
+
+		.sector-cell.car-cell,
+		.sector-cell.place-cell {
+
+			.opacity {
+				display: initial;
+			}
+		}
+
+		.sector-cell.car-cell {
+
+			.inner-id {
+				display: none;
+			}
+		}
+
+		.sector-cell.car-cell {
+
+			.g-number {
+				display: initial;
+			}
+		}
+	}
+
+	.filter {
+		margin: 0;
+		min-height: initial;
+		padding-bottom: 75px;
+		background-color: transparent;
+
+		.item {
+			position: relative;
+			border-top: none;
+			border-bottom: none;
+
+			input {
+				width: 100%;
+				line-height: 40px;
+				padding: 0 $spacer;
+				border: none;
+				box-shadow: none;
+				background-color: $gray-200;
+			}
+
+			i {
+				position: absolute;
+				right: 8px;
+				top: 50%;
+				font-size: 24px;
+				margin-top: -12px;
+			}
+		}
+
+		.item {
+			position: relative;
+			border-top: none;
+			border-bottom: none;
+			border-right: $input-border-width solid $input-border-color;
+			border-left: $input-border-width solid $input-border-color;
+		}
+
+		.item:nth-child(odd) {
+			border-bottom: none;
+			border-top: $input-border-width solid $input-border-color;
+			border-top-left-radius: $border-radius;
+			border-top-right-radius: $border-radius;
+
+			input {
+				border-bottom-left-radius: 0;
+				border-bottom-right-radius: 0;
+				border-top-left-radius: $border-radius;
+				border-top-right-radius: $border-radius;
+			}
+		}
+
+		.item:nth-child(even) {
+			border-top: none;
+			border-bottom: $input-border-width solid $input-border-color;
+			border-bottom-left-radius: $border-radius;
+			border-bottom-right-radius: $border-radius;
+			margin-bottom: 12px;
+
+			input {
+				border-top-left-radius: 0;
+				border-top-right-radius: 0;
+				border-bottom-left-radius: $border-radius;
+				border-bottom-right-radius: $border-radius;
+			}
+		}
+	}
+
+	.search-form {
+		line-height: 38px;
+
+		button {
+			width: 53px;
+			margin-left: 10px;
+			text-align: center;
+			border-radius: 90px;
+
+			i {
+				position: absolute;
+				top: 0;
+				left: 50%;
+				font-size: 23px;
+				margin-left: -12px;
+				line-height: 40px;
+			}
+		}
+
+		.form-group {
+			position: relative;
+
+			input[type="text"] {
+				line-height: 38px;
+				padding-left: 52px;
+			}
+
+			.group-inner-left-icon {
+				position: relative;
+
+				i {
+					position: absolute;
+					top: 0;
+					left: $spacer;
+					z-index: 10;
+					font-size: 25px;
+					line-height: 41px;
+				}
+			}
+		}
+	}
+
+	.road {
+		position: relative;
+		background-image: url('../img/road.svg');
+		background-color: transparent !important;
+		background-size: cover !important;
+
+		.car-wrapper {
+			position: absolute;
+			width: 136px;
+			height: 100px;
+
+			.car-sprite {
+				width: 136px;
+				height: 100px;
+				background-image: url('../sprites/car/2_19.png');
+				background-size: contain;
+				background-repeat: no-repeat;
+			}
+
+			.car-sprite.car-sprite-2-2 {
+				background-image: url("../sprites/car/2_2.png");
+			}
+			.car-sprite.car-sprite-2-3 {
+				background-image: url("../sprites/car/2_3.png");
+			}
+			.car-sprite.car-sprite-2-4 {
+				background-image: url("../sprites/car/2_4.png");
+			}
+			.car-sprite.car-sprite-2-5 {
+				background-image: url("../sprites/car/2_5.png");
+			}
+			.car-sprite.car-sprite-2-6 {
+				background-image: url("../sprites/car/2_6.png");
+			}
+			.car-sprite.car-sprite-2-7 {
+				background-image: url("../sprites/car/2_7.png");
+			}
+			.car-sprite.car-sprite-2-8 {
+				background-image: url("../sprites/car/2_8.png");
+			}
+			.car-sprite.car-sprite-2-9 {
+				background-image: url("../sprites/car/2_9.png");
+			}
+			.car-sprite.car-sprite-2-10 {
+				background-image: url("../sprites/car/2_10.png");
+			}
+			.car-sprite.car-sprite-2-11 {
+				background-image: url("../sprites/car/2_11.png");
+			}
+			.car-sprite.car-sprite-2-12 {
+				background-image: url("../sprites/car/2_12.png");
+			}
+			.car-sprite.car-sprite-2-13 {
+				background-image: url("../sprites/car/2_13.png");
+			}
+			.car-sprite.car-sprite-2-14 {
+				background-image: url("../sprites/car/2_14.png");
+			}
+			.car-sprite.car-sprite-2-15 {
+				background-image: url("../sprites/car/2_15.png");
+			}
+			.car-sprite.car-sprite-2-16 {
+				background-image: url("../sprites/car/2_16.png");
+			}
+			.car-sprite.car-sprite-2-17 {
+				background-image: url("../sprites/car/2_17.png");
+			}
+			.car-sprite.car-sprite-2-18 {
+				background-image: url("../sprites/car/2_18.png");
+			}
+			.car-sprite.car-sprite-2-19 {
+				background-image: url("../sprites/car/2_19.png");
+			}
+			.car-sprite.car-sprite-2-20 {
+				background-image: url("../sprites/car/2_20.png");
+			}
+			.car-sprite.car-sprite-2-21 {
+				background-image: url("../sprites/car/2_21.png");
+			}
+			.car-sprite.car-sprite-3-2 {
+				background-image: url("../sprites/car/2_2.png");
+			}
+			.car-sprite.car-sprite-3-3 {
+				background-image: url("../sprites/car/2_3.png");
+			}
+			.car-sprite.car-sprite-3-4 {
+				background-image: url("../sprites/car/2_4.png");
+			}
+			.car-sprite.car-sprite-3-5 {
+				background-image: url("../sprites/car/2_5.png");
+			}
+			.car-sprite.car-sprite-3-6 {
+				background-image: url("../sprites/car/2_6.png");
+			}
+			.car-sprite.car-sprite-3-7 {
+				background-image: url("../sprites/car/2_7.png");
+			}
+			.car-sprite.car-sprite-3-8 {
+				background-image: url("../sprites/car/2_8.png");
+			}
+			.car-sprite.car-sprite-3-9 {
+				background-image: url("../sprites/car/2_9.png");
+			}
+			.car-sprite.car-sprite-3-10 {
+				background-image: url("../sprites/car/2_10.png");
+			}
+			.car-sprite.car-sprite-3-11 {
+				background-image: url("../sprites/car/2_11.png");
+			}
+			.car-sprite.car-sprite-3-12 {
+				background-image: url("../sprites/car/2_12.png");
+			}
+			.car-sprite.car-sprite-3-13 {
+				background-image: url("../sprites/car/2_13.png");
+			}
+			.car-sprite.car-sprite-3-14 {
+				background-image: url("../sprites/car/2_14.png");
+			}
+			.car-sprite.car-sprite-3-15 {
+				background-image: url("../sprites/car/2_15.png");
+			}
+			.car-sprite.car-sprite-3-16 {
+				background-image: url("../sprites/car/2_16.png");
+			}
+			.car-sprite.car-sprite-3-17 {
+				background-image: url("../sprites/car/2_17.png");
+			}
+			.car-sprite.car-sprite-3-18 {
+				background-image: url("../sprites/car/2_18.png");
+			}
+			.car-sprite.car-sprite-3-19 {
+				background-image: url("../sprites/car/2_19.png");
+			}
+			.car-sprite.car-sprite-3-20 {
+				background-image: url("../sprites/car/2_20.png");
+			}
+			.car-sprite.car-sprite-3-21 {
+				background-image: url("../sprites/car/2_21.png");
+			}
+			.car-sprite.car-sprite-6-2 {
+				background-image: url("../sprites/car/2_2.png");
+			}
+			.car-sprite.car-sprite-6-3 {
+				background-image: url("../sprites/car/2_3.png");
+			}
+			.car-sprite.car-sprite-6-4 {
+				background-image: url("../sprites/car/2_4.png");
+			}
+			.car-sprite.car-sprite-6-5 {
+				background-image: url("../sprites/car/2_5.png");
+			}
+			.car-sprite.car-sprite-6-6 {
+				background-image: url("../sprites/car/2_6.png");
+			}
+			.car-sprite.car-sprite-6-7 {
+				background-image: url("../sprites/car/2_7.png");
+			}
+			.car-sprite.car-sprite-6-8 {
+				background-image: url("../sprites/car/2_8.png");
+			}
+			.car-sprite.car-sprite-6-9 {
+				background-image: url("../sprites/car/2_9.png");
+			}
+			.car-sprite.car-sprite-6-10 {
+				background-image: url("../sprites/car/2_10.png");
+			}
+			.car-sprite.car-sprite-6-11 {
+				background-image: url("../sprites/car/2_11.png");
+			}
+			.car-sprite.car-sprite-6-12 {
+				background-image: url("../sprites/car/2_12.png");
+			}
+			.car-sprite.car-sprite-6-13 {
+				background-image: url("../sprites/car/2_13.png");
+			}
+			.car-sprite.car-sprite-6-14 {
+				background-image: url("../sprites/car/2_14.png");
+			}
+			.car-sprite.car-sprite-6-15 {
+				background-image: url("../sprites/car/2_15.png");
+			}
+			.car-sprite.car-sprite-6-16 {
+				background-image: url("../sprites/car/2_16.png");
+			}
+			.car-sprite.car-sprite-6-17 {
+				background-image: url("../sprites/car/2_17.png");
+			}
+			.car-sprite.car-sprite-6-18 {
+				background-image: url("../sprites/car/2_18.png");
+			}
+			.car-sprite.car-sprite-6-19 {
+				background-image: url("../sprites/car/2_19.png");
+			}
+			.car-sprite.car-sprite-6-20 {
+				background-image: url("../sprites/car/2_20.png");
+			}
+			.car-sprite.car-sprite-6-21 {
+				background-image: url("../sprites/car/2_21.png");
+			}
+			.car-sprite.car-sprite-6-2 {
+				background-image: url("../sprites/car/2_2.png");
+			}
+			.car-sprite.car-sprite-6-3 {
+				background-image: url("../sprites/car/2_3.png");
+			}
+			.car-sprite.car-sprite-6-4 {
+				background-image: url("../sprites/car/2_4.png");
+			}
+			.car-sprite.car-sprite-6-5 {
+				background-image: url("../sprites/car/2_5.png");
+			}
+			.car-sprite.car-sprite-6-6 {
+				background-image: url("../sprites/car/2_6.png");
+			}
+			.car-sprite.car-sprite-6-7 {
+				background-image: url("../sprites/car/2_7.png");
+			}
+			.car-sprite.car-sprite-6-8 {
+				background-image: url("../sprites/car/2_8.png");
+			}
+			.car-sprite.car-sprite-6-9 {
+				background-image: url("../sprites/car/2_9.png");
+			}
+			.car-sprite.car-sprite-6-10 {
+				background-image: url("../sprites/car/2_10.png");
+			}
+			.car-sprite.car-sprite-6-11 {
+				background-image: url("../sprites/car/2_11.png");
+			}
+			.car-sprite.car-sprite-6-12 {
+				background-image: url("../sprites/car/2_12.png");
+			}
+			.car-sprite.car-sprite-6-13 {
+				background-image: url("../sprites/car/2_13.png");
+			}
+			.car-sprite.car-sprite-6-14 {
+				background-image: url("../sprites/car/2_14.png");
+			}
+			.car-sprite.car-sprite-6-15 {
+				background-image: url("../sprites/car/2_15.png");
+			}
+			.car-sprite.car-sprite-6-16 {
+				background-image: url("../sprites/car/2_16.png");
+			}
+			.car-sprite.car-sprite-6-17 {
+				background-image: url("../sprites/car/2_17.png");
+			}
+			.car-sprite.car-sprite-6-18 {
+				background-image: url("../sprites/car/2_18.png");
+			}
+			.car-sprite.car-sprite-6-19 {
+				background-image: url("../sprites/car/2_19.png");
+			}
+			.car-sprite.car-sprite-6-20 {
+				background-image: url("../sprites/car/2_20.png");
+			}
+			.car-sprite.car-sprite-7-21 {
+				background-image: url("../sprites/car/2_21.png");
+			}
+			.car-sprite.car-sprite-9-2 {
+				background-image: url("../sprites/car/2_2.png");
+			}
+			.car-sprite.car-sprite-9-3 {
+				background-image: url("../sprites/car/2_3.png");
+			}
+			.car-sprite.car-sprite-9-4 {
+				background-image: url("../sprites/car/2_4.png");
+			}
+			.car-sprite.car-sprite-9-5 {
+				background-image: url("../sprites/car/2_5.png");
+			}
+			.car-sprite.car-sprite-9-6 {
+				background-image: url("../sprites/car/2_6.png");
+			}
+			.car-sprite.car-sprite-9-7 {
+				background-image: url("../sprites/car/2_7.png");
+			}
+			.car-sprite.car-sprite-9-8 {
+				background-image: url("../sprites/car/2_8.png");
+			}
+			.car-sprite.car-sprite-9-9 {
+				background-image: url("../sprites/car/2_9.png");
+			}
+			.car-sprite.car-sprite-9-10 {
+				background-image: url("../sprites/car/2_10.png");
+			}
+			.car-sprite.car-sprite-9-11 {
+				background-image: url("../sprites/car/2_11.png");
+			}
+			.car-sprite.car-sprite-9-12 {
+				background-image: url("../sprites/car/2_12.png");
+			}
+			.car-sprite.car-sprite-9-13 {
+				background-image: url("../sprites/car/2_13.png");
+			}
+			.car-sprite.car-sprite-9-14 {
+				background-image: url("../sprites/car/2_14.png");
+			}
+			.car-sprite.car-sprite-9-15 {
+				background-image: url("../sprites/car/2_15.png");
+			}
+			.car-sprite.car-sprite-9-16 {
+				background-image: url("../sprites/car/2_16.png");
+			}
+			.car-sprite.car-sprite-9-17 {
+				background-image: url("../sprites/car/2_17.png");
+			}
+			.car-sprite.car-sprite-9-18 {
+				background-image: url("../sprites/car/2_18.png");
+			}
+			.car-sprite.car-sprite-9-19 {
+				background-image: url("../sprites/car/2_19.png");
+			}
+			.car-sprite.car-sprite-9-20 {
+				background-image: url("../sprites/car/2_20.png");
+			}
+			.car-sprite.car-sprite-9-21 {
+				background-image: url("../sprites/car/2_21.png");
+			}
+			.car-sprite.car-sprite-10-2 {
+				background-image: url("../sprites/car/2_2.png");
+			}
+			.car-sprite.car-sprite-10-3 {
+				background-image: url("../sprites/car/2_3.png");
+			}
+			.car-sprite.car-sprite-10-4 {
+				background-image: url("../sprites/car/2_4.png");
+			}
+			.car-sprite.car-sprite-10-5 {
+				background-image: url("../sprites/car/2_5.png");
+			}
+			.car-sprite.car-sprite-10-6 {
+				background-image: url("../sprites/car/2_6.png");
+			}
+			.car-sprite.car-sprite-10-7 {
+				background-image: url("../sprites/car/2_7.png");
+			}
+			.car-sprite.car-sprite-10-8 {
+				background-image: url("../sprites/car/2_8.png");
+			}
+			.car-sprite.car-sprite-10-9 {
+				background-image: url("../sprites/car/2_9.png");
+			}
+			.car-sprite.car-sprite-10-10 {
+				background-image: url("../sprites/car/2_10.png");
+			}
+			.car-sprite.car-sprite-10-11 {
+				background-image: url("../sprites/car/2_11.png");
+			}
+			.car-sprite.car-sprite-10-12 {
+				background-image: url("../sprites/car/2_12.png");
+			}
+			.car-sprite.car-sprite-10-13 {
+				background-image: url("../sprites/car/2_13.png");
+			}
+			.car-sprite.car-sprite-10-14 {
+				background-image: url("../sprites/car/2_14.png");
+			}
+			.car-sprite.car-sprite-10-15 {
+				background-image: url("../sprites/car/2_15.png");
+			}
+			.car-sprite.car-sprite-10-16 {
+				background-image: url("../sprites/car/2_16.png");
+			}
+			.car-sprite.car-sprite-10-17 {
+				background-image: url("../sprites/car/2_17.png");
+			}
+			.car-sprite.car-sprite-10-18 {
+				background-image: url("../sprites/car/2_18.png");
+			}
+			.car-sprite.car-sprite-10-19 {
+				background-image: url("../sprites/car/2_19.png");
+			}
+			.car-sprite.car-sprite-10-20 {
+				background-image: url("../sprites/car/2_20.png");
+			}
+			.car-sprite.car-sprite-10-21 {
+				background-image: url("../sprites/car/2_21.png");
+			}
+			.car-sprite.car-sprite-4-2 {
+				background-image: url("../sprites/car/4_2.png");
+			}
+			.car-sprite.car-sprite-4-3 {
+				background-image: url("../sprites/car/4_3.png");
+			}
+			.car-sprite.car-sprite-4-4 {
+				background-image: url("../sprites/car/4_4.png");
+			}
+			.car-sprite.car-sprite-4-5 {
+				background-image: url("../sprites/car/4_5.png");
+			}
+			.car-sprite.car-sprite-4-6 {
+				background-image: url("../sprites/car/4_6.png");
+			}
+			.car-sprite.car-sprite-4-7 {
+				background-image: url("../sprites/car/4_7.png");
+			}
+			.car-sprite.car-sprite-4-8 {
+				background-image: url("../sprites/car/4_8.png");
+			}
+			.car-sprite.car-sprite-4-9 {
+				background-image: url("../sprites/car/4_9.png");
+			}
+			.car-sprite.car-sprite-4-10 {
+				background-image: url("../sprites/car/4_10.png");
+			}
+			.car-sprite.car-sprite-4-11 {
+				background-image: url("../sprites/car/4_11.png");
+			}
+			.car-sprite.car-sprite-4-12 {
+				background-image: url("../sprites/car/4_12.png");
+			}
+			.car-sprite.car-sprite-4-13 {
+				background-image: url("../sprites/car/4_13.png");
+			}
+			.car-sprite.car-sprite-4-14 {
+				background-image: url("../sprites/car/4_14.png");
+			}
+			.car-sprite.car-sprite-4-15 {
+				background-image: url("../sprites/car/4_15.png");
+			}
+			.car-sprite.car-sprite-4-16 {
+				background-image: url("../sprites/car/4_16.png");
+			}
+			.car-sprite.car-sprite-4-17 {
+				background-image: url("../sprites/car/4_17.png");
+			}
+			.car-sprite.car-sprite-4-18 {
+				background-image: url("../sprites/car/4_18.png");
+			}
+			.car-sprite.car-sprite-4-19 {
+				background-image: url("../sprites/car/4_19.png");
+			}
+			.car-sprite.car-sprite-4-20 {
+				background-image: url("../sprites/car/4_20.png");
+			}
+			.car-sprite.car-sprite-4-21 {
+				background-image: url("../sprites/car/4_21.png");
+			}
+			.car-sprite.car-sprite-8-2 {
+				background-image: url("../sprites/car/4_2.png");
+			}
+			.car-sprite.car-sprite-8-3 {
+				background-image: url("../sprites/car/4_3.png");
+			}
+			.car-sprite.car-sprite-8-4 {
+				background-image: url("../sprites/car/4_4.png");
+			}
+			.car-sprite.car-sprite-8-5 {
+				background-image: url("../sprites/car/4_5.png");
+			}
+			.car-sprite.car-sprite-8-6 {
+				background-image: url("../sprites/car/4_6.png");
+			}
+			.car-sprite.car-sprite-8-7 {
+				background-image: url("../sprites/car/4_7.png");
+			}
+			.car-sprite.car-sprite-8-8 {
+				background-image: url("../sprites/car/4_8.png");
+			}
+			.car-sprite.car-sprite-8-9 {
+				background-image: url("../sprites/car/4_9.png");
+			}
+			.car-sprite.car-sprite-8-10 {
+				background-image: url("../sprites/car/4_10.png");
+			}
+			.car-sprite.car-sprite-8-11 {
+				background-image: url("../sprites/car/4_11.png");
+			}
+			.car-sprite.car-sprite-8-12 {
+				background-image: url("../sprites/car/4_12.png");
+			}
+			.car-sprite.car-sprite-8-13 {
+				background-image: url("../sprites/car/4_13.png");
+			}
+			.car-sprite.car-sprite-8-14 {
+				background-image: url("../sprites/car/4_14.png");
+			}
+			.car-sprite.car-sprite-8-15 {
+				background-image: url("../sprites/car/4_15.png");
+			}
+			.car-sprite.car-sprite-8-16 {
+				background-image: url("../sprites/car/4_16.png");
+			}
+			.car-sprite.car-sprite-8-17 {
+				background-image: url("../sprites/car/4_17.png");
+			}
+			.car-sprite.car-sprite-8-18 {
+				background-image: url("../sprites/car/4_18.png");
+			}
+			.car-sprite.car-sprite-8-19 {
+				background-image: url("../sprites/car/4_19.png");
+			}
+			.car-sprite.car-sprite-8-20 {
+				background-image: url("../sprites/car/4_20.png");
+			}
+			.car-sprite.car-sprite-8-21 {
+				background-image: url("../sprites/car/4_21.png");
+			}
+			.car-sprite.car-sprite-11-2 {
+				background-image: url("../sprites/car/4_2.png");
+			}
+			.car-sprite.car-sprite-11-3 {
+				background-image: url("../sprites/car/4_3.png");
+			}
+			.car-sprite.car-sprite-11-4 {
+				background-image: url("../sprites/car/4_4.png");
+			}
+			.car-sprite.car-sprite-11-5 {
+				background-image: url("../sprites/car/4_5.png");
+			}
+			.car-sprite.car-sprite-11-6 {
+				background-image: url("../sprites/car/4_6.png");
+			}
+			.car-sprite.car-sprite-11-7 {
+				background-image: url("../sprites/car/4_7.png");
+			}
+			.car-sprite.car-sprite-11-8 {
+				background-image: url("../sprites/car/4_8.png");
+			}
+			.car-sprite.car-sprite-11-9 {
+				background-image: url("../sprites/car/4_9.png");
+			}
+			.car-sprite.car-sprite-11-10 {
+				background-image: url("../sprites/car/4_10.png");
+			}
+			.car-sprite.car-sprite-11-11 {
+				background-image: url("../sprites/car/4_11.png");
+			}
+			.car-sprite.car-sprite-11-12 {
+				background-image: url("../sprites/car/4_12.png");
+			}
+			.car-sprite.car-sprite-11-13 {
+				background-image: url("../sprites/car/4_13.png");
+			}
+			.car-sprite.car-sprite-11-14 {
+				background-image: url("../sprites/car/4_14.png");
+			}
+			.car-sprite.car-sprite-11-15 {
+				background-image: url("../sprites/car/4_15.png");
+			}
+			.car-sprite.car-sprite-11-16 {
+				background-image: url("../sprites/car/4_16.png");
+			}
+			.car-sprite.car-sprite-11-17 {
+				background-image: url("../sprites/car/4_17.png");
+			}
+			.car-sprite.car-sprite-11-18 {
+				background-image: url("../sprites/car/4_18.png");
+			}
+			.car-sprite.car-sprite-11-19 {
+				background-image: url("../sprites/car/4_19.png");
+			}
+			.car-sprite.car-sprite-11-20 {
+				background-image: url("../sprites/car/4_20.png");
+			}
+			.car-sprite.car-sprite-11-21 {
+				background-image: url("../sprites/car/4_21.png");
+			}
+			.car-sprite.car-sprite-5-2 {
+				background-image: url("../sprites/car/5_2.png");
+			}
+			.car-sprite.car-sprite-5-3 {
+				background-image: url("../sprites/car/5_3.png");
+			}
+			.car-sprite.car-sprite-5-4 {
+				background-image: url("../sprites/car/5_4.png");
+			}
+			.car-sprite.car-sprite-5-5 {
+				background-image: url("../sprites/car/5_5.png");
+			}
+			.car-sprite.car-sprite-5-6 {
+				background-image: url("../sprites/car/5_6.png");
+			}
+			.car-sprite.car-sprite-5-7 {
+				background-image: url("../sprites/car/5_7.png");
+			}
+			.car-sprite.car-sprite-5-8 {
+				background-image: url("../sprites/car/5_8.png");
+			}
+			.car-sprite.car-sprite-5-9 {
+				background-image: url("../sprites/car/5_9.png");
+			}
+			.car-sprite.car-sprite-5-10 {
+				background-image: url("../sprites/car/5_10.png");
+			}
+			.car-sprite.car-sprite-5-11 {
+				background-image: url("../sprites/car/5_11.png");
+			}
+			.car-sprite.car-sprite-5-12 {
+				background-image: url("../sprites/car/5_12.png");
+			}
+			.car-sprite.car-sprite-5-13 {
+				background-image: url("../sprites/car/5_13.png");
+			}
+			.car-sprite.car-sprite-5-14 {
+				background-image: url("../sprites/car/5_14.png");
+			}
+			.car-sprite.car-sprite-5-15 {
+				background-image: url("../sprites/car/5_15.png");
+			}
+			.car-sprite.car-sprite-5-16 {
+				background-image: url("../sprites/car/5_16.png");
+			}
+			.car-sprite.car-sprite-5-17 {
+				background-image: url("../sprites/car/5_17.png");
+			}
+			.car-sprite.car-sprite-5-18 {
+				background-image: url("../sprites/car/5_18.png");
+			}
+			.car-sprite.car-sprite-5-19 {
+				background-image: url("../sprites/car/5_19.png");
+			}
+			.car-sprite.car-sprite-5-20 {
+				background-image: url("../sprites/car/5_20.png");
+			}
+			.car-sprite.car-sprite-5-21 {
+				background-image: url("../sprites/car/5_21.png");
+			}
+			.car-sprite.car-sprite-1-2 {
+				background-image: url("../sprites/car/5_2.png");
+			}
+			.car-sprite.car-sprite-1-3 {
+				background-image: url("../sprites/car/5_3.png");
+			}
+			.car-sprite.car-sprite-1-4 {
+				background-image: url("../sprites/car/5_4.png");
+			}
+			.car-sprite.car-sprite-1-5 {
+				background-image: url("../sprites/car/5_5.png");
+			}
+			.car-sprite.car-sprite-1-6 {
+				background-image: url("../sprites/car/5_6.png");
+			}
+			.car-sprite.car-sprite-1-7 {
+				background-image: url("../sprites/car/5_7.png");
+			}
+			.car-sprite.car-sprite-1-8 {
+				background-image: url("../sprites/car/5_8.png");
+			}
+			.car-sprite.car-sprite-1-9 {
+				background-image: url("../sprites/car/5_9.png");
+			}
+			.car-sprite.car-sprite-1-10 {
+				background-image: url("../sprites/car/5_10.png");
+			}
+			.car-sprite.car-sprite-1-11 {
+				background-image: url("../sprites/car/5_11.png");
+			}
+			.car-sprite.car-sprite-1-12 {
+				background-image: url("../sprites/car/5_12.png");
+			}
+			.car-sprite.car-sprite-1-13 {
+				background-image: url("../sprites/car/5_13.png");
+			}
+			.car-sprite.car-sprite-1-14 {
+				background-image: url("../sprites/car/5_14.png");
+			}
+			.car-sprite.car-sprite-1-15 {
+				background-image: url("../sprites/car/5_15.png");
+			}
+			.car-sprite.car-sprite-1-16 {
+				background-image: url("../sprites/car/5_16.png");
+			}
+			.car-sprite.car-sprite-1-17 {
+				background-image: url("../sprites/car/5_17.png");
+			}
+			.car-sprite.car-sprite-1-18 {
+				background-image: url("../sprites/car/5_18.png");
+			}
+			.car-sprite.car-sprite-1-19 {
+				background-image: url("../sprites/car/5_19.png");
+			}
+			.car-sprite.car-sprite-1-20 {
+				background-image: url("../sprites/car/5_20.png");
+			}
+			.car-sprite.car-sprite-1-21 {
+				background-image: url("../sprites/car/5_21.png");
+			}
+		}
 	}
 }

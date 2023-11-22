@@ -21,6 +21,8 @@ const path = {
 		js: 'dist/js/',
 		sw: 'dist/',
 		img: 'dist/img/',
+		tiles: 'dist/tiles/',
+		sprites: 'dist/sprites/',
 		fonts: 'dist/fonts/'
 	},
 	build: {
@@ -29,6 +31,8 @@ const path = {
 		js: 'build/js/',
 		sw: 'build/',
 		img: 'build/img/',
+		tiles: 'build/tiles/',
+		sprites: 'build/sprites/',
 		fonts: 'build/fonts/'
 	},
 	src: {
@@ -37,6 +41,8 @@ const path = {
 		js: 'src/js/main.js',
 		sw: 'src/js/sw.js',
 		img: 'src/img/**/*.*',
+		tiles: 'src/tiles/**/*.*',
+		sprites: 'src/sprites/**/*.*',
 		fonts: 'src/fonts/**/*.*'
 	},
 	watch: {
@@ -44,6 +50,8 @@ const path = {
 		scss: 'src/sass/*.scss',
 		js: 'src/js/*.js',
 		img: 'src/img/**/*.*',
+		tiles: 'src/tiles/**/*.*',
+		sprites: 'src/sprites/**/*.*',
 		fonts: 'src/fonts/**/*.*'
 	},
 	clean: {
@@ -145,6 +153,30 @@ gulp.task('image:dist', function () {
 });
 
 
+gulp.task('tiles:build', function () {
+	return gulp.src(path.src.tiles)
+		.pipe(gulp.dest(path.build.tiles))
+});
+
+
+gulp.task('tiles:dist', function () {
+	return gulp.src(path.src.tiles)
+		.pipe(gulp.dest(path.dist.tiles));
+});
+
+
+gulp.task('sprites:build', function () {
+	return gulp.src(path.src.sprites)
+		.pipe(gulp.dest(path.build.sprites))
+});
+
+
+gulp.task('sprites:dist', function () {
+	return gulp.src(path.src.sprites)
+		.pipe(gulp.dest(path.dist.sprites));
+});
+
+
 gulp.task('fonts:build', function () {
 	return gulp.src(path.src.fonts)
 		.pipe(gulp.dest(path.build.fonts))
@@ -179,6 +211,8 @@ gulp.task('dist',
 			'js:dist',
 			//'sw:dist',
 			'image:dist',
+			'tiles:dist',
+			'sprites:dist',
 			'fonts:dist'
 		)
 	)
@@ -193,6 +227,8 @@ gulp.task('build',
 			'js:build',
 			//'sw:build',
 			'image:build',
+			'tiles:build',
+			'sprites:build',
 			'fonts:build'
 		)
 	)
@@ -204,6 +240,8 @@ gulp.task('watch', function () {
 	gulp.watch(path.watch.scss, gulp.series('css:build'));
 	gulp.watch(path.watch.js, gulp.series('js:build'));
 	gulp.watch(path.watch.img, gulp.series('image:build'));
+	gulp.watch(path.watch.tiles, gulp.series('tiles:build'));
+	gulp.watch(path.watch.tiles, gulp.series('sprites:build'));
 	gulp.watch(path.watch.fonts, gulp.series('fonts:build'));
 });
 

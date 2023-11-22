@@ -1,19 +1,111 @@
 
-
-$font-family-sans-serif:      system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$font-family-sans-serif:      -apple-system, "Red Hat Display", "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
 $font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 
 $font-size-root:              null !default;
-$font-size-base:              .75rem; // Assumes the browser default, typically `16px`
-$line-height-base:            1.25 !default;
+$font-size-base:              .85rem; // Assumes the browser default, typically `16px`
+$line-height-base:            1.35 !default;
+$small-font-size:             .845em !default;
 
 $primary:                     #0D73BB !default;
+$cyan:                        #0D73BB !default;
+$red:     					  #ff653c !default;
+
+$text-muted:   				  #ACAFB5 !default;
+$border-radius:  			  8px !default;
+$border-radius-pill:   		  4px !default;
+
+$modal-dialog-margin:         12px !default;
+
+$spacer: 12px !default;
+$spacers: (
+	0: 0,
+	1: $spacer * .25,
+	2: $spacer * .5,
+	3: $spacer,
+	4: $spacer * 1.5,
+	5: $spacer * 2.5,
+	6: $spacer * 3,
+	7: $spacer * 3.5,
+	8: $spacer * 4,
+	9: $spacer * 4.5,
+	10: $spacer * 5,
+	11: $spacer * 5.5,
+	12: $spacer * 6,
+	13: $spacer * 6.5,
+	14: $spacer * 7,
+	15: $spacer * 7.5,
+	16: $spacer * 8,
+	17: $spacer * 8.5,
+	18: $spacer * 9,
+	19: $spacer * 9.5,
+	20: $spacer * 10,
+) !default;
+
+$spacer_value: 12 !default;
+$spacer_values: (
+	0: 0,
+	1: $spacer_value * .25,
+	2: $spacer_value * .5,
+	3: $spacer_value,
+	4: $spacer_value * 1.5,
+	5: $spacer_value * 2.5,
+	6: $spacer_value * 3,
+	7: $spacer_value * 3.5,
+	8: $spacer_value * 4,
+	9: $spacer_value * 4.5,
+	10: $spacer_value * 5,
+	11: $spacer_value * 5.5,
+	12: $spacer_value * 6,
+	13: $spacer_value * 6.5,
+	14: $spacer_value * 7,
+	15: $spacer_value * 7.5,
+	16: $spacer_value * 8,
+	17: $spacer_value * 8.5,
+	18: $spacer_value * 9,
+	19: $spacer_value * 9.5,
+	20: $spacer_value * 10,
+) !default;
+
+$widths: (
+	5: 5%,
+	10: 10%,
+	15: 15%,
+	20: 20%,
+	25: 25%,
+	30: 30%,
+	35: 35%,
+	40: 40%,
+	45: 45%,
+	50: 50%,
+	55: 55%,
+	60: 60%,
+	65: 65%,
+	70: 70%,
+	75: 75%,
+	80: 80%,
+	85: 85%,
+	90: 90%,
+	95: 95%,
+	100: 100%,
+) !default;
+
+$sprites_ids: (
+	1
+) !default;
+
+@import "fonts";
+
+@import "icomoon/variables";
+@import "icomoon/style";
+
+@import "fontawesome/scss/fontawesome";
+@import "fontawesome/scss/solid";
+@import "fontawesome/scss/regular";
+@import "fontawesome/scss/brands";
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "../../node_modules/bootstrap/scss/functions";
-
-@import "icons/variables";
-@import "icons/style";
 
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/mixins";
@@ -25,6 +117,7 @@ $primary:                     #0D73BB !default;
 @import "../../node_modules/bootstrap/scss/containers";
 @import "../../node_modules/bootstrap/scss/grid";
 
+@import "variables";
 @import "custom";
 
 
